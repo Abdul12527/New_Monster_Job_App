@@ -19,7 +19,7 @@ The core entity in this application is the "Job" class. It includes the followin
 - **companyName (String):** Name of the hiring company.
 - **employerName (String):** Name of the employer.
 - **jobTypes (Enum):** Type of job (e.g., IT, HR, Sales, Marketing, Finance).
-- **appliedDate (Date):** Date when the job was applied.
+- **postDate (Date):** Date when the job was applied.
 
 ## Repository
 The "IJobRepo" interface extends the "CrudRepository" and provides custom query methods for interacting with the H2 database. It includes queries such as:
@@ -39,6 +39,11 @@ The "JobCurdAPI" class serves as the API controller for the NewMonster Jobs appl
 - **GET /jobs/type/salary:** Filter jobs by job type and minimum salary.
 - **PUT /jobs/type/hike:** Increase job salaries for a specific job type. Provide jobType and hike as request parameters.
 - **PUT /job/id:** Update job details by providing the job ID and optional parameters for title, description, location, salary, companyEmail, companyName, employerName, jobTypes, and appliedDate.
+- **DELETE /job/id:** Delete the Job record for corresponding ID
+- **DELETE job/date/{date}:** Delete all the Jobs which has been posted before given date
+
+
+
 
 ## Database Schema
 The database schema for the "Job" entity is as follows:
@@ -53,7 +58,7 @@ The database schema for the "Job" entity is as follows:
   - companyName (string)
   - employerName (string)
   - jobTypes (enum)
-  - appliedDate (date)
+  - postDate (date)
 
 ## Getting Started
 To start using the NewMonster Jobs application, follow the installation steps below.
