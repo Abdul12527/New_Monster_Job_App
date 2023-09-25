@@ -66,4 +66,13 @@ public class JobServices {
 
         jobRepo.save(job);
     }
+
+    public void deleteJobById(Long id) {
+        jobRepo.deleteById(id);
+    }
+    @Transactional
+    public void deleteAllJobsBeforeDate(Date date){
+        jobRepo.deleteJobsWithAppliedDateLessThan(date);
+    }
+
 }

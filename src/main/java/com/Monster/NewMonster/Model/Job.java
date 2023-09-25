@@ -37,5 +37,6 @@ public class Job {
     private String employerName;
     @Enumerated(EnumType.STRING)
     private JobTypes jobTypes;
-    private Date appliedDate;
+    @NotBlank
+    private Date postDate;
 }

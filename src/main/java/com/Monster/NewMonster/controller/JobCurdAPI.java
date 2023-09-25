@@ -52,14 +52,23 @@ public class JobCurdAPI {
         jobServices.updateSalaryByJobType(hike, jobType);
         return "updated";
     }
-@PutMapping("job/id")
+    @PutMapping("job/id")
     public String updateJob(@RequestParam Long id, @RequestParam(required = false) String title, @RequestParam(required = false) String description, @RequestParam(required = false) String location,@RequestParam(required = false) Double salary, @RequestParam(required = false) String companyEmail, @RequestParam(required = false) String companyName, @RequestParam(required = false) String employerName, @RequestParam(required = false) JobTypes jobTypes,@RequestParam(required = false) Date appliedDate){
         jobServices.updateJob(id,title,description,location,salary,companyEmail,companyName,employerName,jobTypes,appliedDate);
         return "Updated";
     }
 
+    @DeleteMapping("job/id/{id}")
+    public String deleteJobById(@PathVariable Long id){
+        jobServices.deleteJobById(id);
+        return "deleted sucessfully";
+    }
 
-
+    @DeleteMapping("job/date/{date}")
+    public String deleteAllTheJobBeforeSpecificDate(Date date){
+        jobServices.deleteAllJobsBeforeDate(date);
+        return "deleted sucessfully";
+    }
 
 
 }

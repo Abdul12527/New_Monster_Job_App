@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IJobRepo extends CrudRepository<Job,Long> {
@@ -21,6 +22,11 @@ public interface IJobRepo extends CrudRepository<Job,Long> {
     @Modifying
     @Query(value = " UPDATE JOB SET SALARY = SALARY + :hikeAmount WHERE JOB_TYPES = :jobType", nativeQuery = true)
     void updateSalaryByJobType( Double hikeAmount,  String jobType);
+
+    @Modifying
+    @Query(value = "DELETE FROM Job j WHERE j.postDate < :specifiedDate")
+    void deleteJobsWithAppliedDateLessThan(@Param("specifiedDate") Date specifiedDate);
+
 
 
 }
