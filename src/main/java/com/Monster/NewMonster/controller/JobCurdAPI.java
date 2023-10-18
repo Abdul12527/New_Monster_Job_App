@@ -18,7 +18,7 @@ public class JobCurdAPI {
     JobServices jobServices;
 
     @PostMapping("/job")
-    public String addJob(@Valid @RequestBody Job job){
+    public String addJob( @RequestBody Job job){
         jobServices.addJob(job);
         return "200 job added sucessfully";
     }
