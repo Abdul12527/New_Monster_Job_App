@@ -6,6 +6,7 @@ import com.Monster.NewMonster.services.JobServices;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -18,9 +19,10 @@ public class JobCurdAPI {
     JobServices jobServices;
 
     @PostMapping("/job")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String addJob( @RequestBody Job job){
         jobServices.addJob(job);
-        return "200 job added sucessfully";
+        return "200 job added successfully";
     }
 
     @GetMapping("/jobs")
@@ -48,23 +50,27 @@ public class JobCurdAPI {
         return  jobServices.findByJobTypesAndSalaryGreaterThanEqualOrderByDesc(type,salary);
     }
     @PutMapping("jobs/type/hike")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String slaryHikeforType(@RequestParam JobTypes jobType, @RequestParam Double hike) {
         jobServices.updateSalaryByJobType(hike, jobType);
         return "updated";
     }
     @PutMapping("job/id")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String updateJob(@RequestParam Long id, @RequestParam(required = false) String title, @RequestParam(required = false) String description, @RequestParam(required = false) String location,@RequestParam(required = false) Double salary, @RequestParam(required = false) String companyEmail, @RequestParam(required = false) String companyName, @RequestParam(required = false) String employerName, @RequestParam(required = false) JobTypes jobTypes,@RequestParam(required = false) Date appliedDate){
         jobServices.updateJob(id,title,description,location,salary,companyEmail,companyName,employerName,jobTypes,appliedDate);
         return "Updated";
     }
 
     @DeleteMapping("job/id/{id}")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String deleteJobById(@PathVariable Long id){
         jobServices.deleteJobById(id);
         return "deleted sucessfully";
     }
 
     @DeleteMapping("job/date/{date}")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String deleteAllTheJobBeforeSpecificDate(Date date){
         jobServices.deleteAllJobsBeforeDate(date);
         return "deleted sucessfully";
